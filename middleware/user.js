@@ -1,18 +1,16 @@
-const jwt = require('jsonwebtoken');
-const { JWT_USER_PASSWORD } = require('../config');
-
+const jwt = require("jsonwebtoken");
+const { JWT_USER_PASSWORD } = require("../config");
 
 function userMiddleware(req, res, next) {
-    const token = req.hearders.token;
+    const token = req.headers.token;
     const decoded = jwt.verify(token, JWT_USER_PASSWORD);
 
-    if(decoded) {
+    if (decoded) {
         req.userId = decoded.id;
-        next();
-    }
-    else{
+        next()
+    } else {
         res.status(403).json({
-            msg : "You are not signed in"
+            message: "You are not signed in"
         })
     }
 
